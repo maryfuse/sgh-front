@@ -3,7 +3,8 @@ var output="";
 
 $(document).ready(async function () {   
   CKEDITOR.replace( 'message',
-  { enterMode : CKEDITOR.ENTER_BR });
+  { enterMode : CKEDITOR.ENTER_BR,
+    height: 300 });
 
     try{
       output = [
@@ -22,7 +23,15 @@ $(document).ready(async function () {
             "message": "Hi",
             "fileUpload": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAkCAYAAAD7PHgWAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAySURBVHgB7dYxEQAwDMSwpPw5t+XwS3InIfDovl8Ndmo4gQDAbu0HQwIBgN38YEpg6gFMKwwK4Xmo2QAAAABJRU5ErkJggg==",
             "dateCreate": "2021-04-21 17:10:12"
-        }
+        },
+      {
+          "id": "17",
+          "name": "Hoho",
+          "department": "Manager",
+          "message": "Hi",
+          "fileUpload": "",
+          "dateCreate": "2021-04-21 17:10:12"
+      }
     ]
       
         // const result= await $.getJSON(`http://localhost:8888/greeting`)  
@@ -79,6 +88,7 @@ const postMessage = async () => {
     let department = $('#department').val()
     let message = CKEDITOR.instances['message'].getData();
     let convertImg = await convertBase64();
+    convertImg = convertImg ? convertImg : "";
 
     console.log(name, department, message, convertImg)
 
@@ -386,10 +396,14 @@ function initMap(){
   ]
   // Take Map Data
   for(let i=0;i<output.length;i++){
-      const contentString ="<div class='contain'><span class='title-marker'>&quot;"+ output[i].message +
+      var contentString ="<div class='contain'><span class='title-marker'>&quot;"+ output[i].message +
       "&quot;</span><p>From "+output[i].name+" ("+output[i].department + 
-      ")</p><br><img alt='img' src='"+output[i].fileUpload+"'></div>";
-
+      ")</p>";
+      if(output[i].fileUpload){
+        contentString +="<br><img alt='img' src='"+output[i].fileUpload+"'>";
+      }
+      contentString +="</div>";
+      
       //Creating Info Popup
       const infowindow = new google.maps.InfoWindow({
         content: contentString
