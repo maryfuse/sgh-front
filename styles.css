@@ -52,7 +52,7 @@
 .btn-group-fab .btn i {
   margin: auto;
 }
-.form-group{
+.form-group, #send-message h2{
   margin: 20px
 }
 
