@@ -3,20 +3,19 @@ var output="";
 
 $(document).ready(async function () {   
   CKEDITOR.replace( 'message',
-  { enterMode : CKEDITOR.ENTER_BR,
+  { 
+    enterMode : CKEDITOR.ENTER_BR,
     height: 300,
-    wordcount: { 
-      // showWordCount: true,
-      // maxWordCount: 2,
-      showParagraphs: false,
-            showWordCount: true,
-            showCharCount: true,
-            countSpacesAsChars: false,
-            countHTML: false,
-            maxWordCount: 2,
-            maxCharCount: 4000
-    }
-    });
+    resize_dir : 'horizontal' ,
+    toolbar: [
+      { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'Cut', 'Copy', 'PasteText', '-', 'Undo', 'Redo' ] },
+      { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript','-', 'RemoveFormat' ] },
+      { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },'/',
+      { name: 'styles' , items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
+  		{ name: 'colors', items: [ 'TextColor', 'BGColor' ] },
+    ]
+    },
+);
 
     try{
       output = [
@@ -99,6 +98,28 @@ $(document).ready(async function () {
 //         e.preventDefault();
 //     });
 // });
+
+
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
 
 const convertBase64 = () =>{
     const b= $('#upload').prop('files')[0];
