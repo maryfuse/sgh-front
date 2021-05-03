@@ -6,7 +6,6 @@ $(document).ready(async function () {
   { 
     enterMode : CKEDITOR.ENTER_BR,
     height: 300,
-    resize_dir : 'horizontal' ,
     toolbar: [
       { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'Cut', 'Copy', 'PasteText', '-', 'Undo', 'Redo' ] },
       { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript','-', 'RemoveFormat' ] },
@@ -40,7 +39,7 @@ $(document).ready(async function () {
           "name": "Hoho",
           "department": "Department C",
           "message": "Hi",
-          "fileUpload": "",
+          "fileUpload": "-",
           "dateCreate": "2021-04-21 17:10:12"
       },
       {
@@ -48,7 +47,7 @@ $(document).ready(async function () {
           "name": "Hoho",
           "department": "Department C",
           "message": "Hi",
-          "fileUpload": "",
+          "fileUpload": "-",
           "dateCreate": "2021-04-21 17:10:12"
       },
       {
@@ -56,7 +55,7 @@ $(document).ready(async function () {
           "name": "Hoho",
           "department": "Department B",
           "message": "Hi",
-          "fileUpload": "",
+          "fileUpload": "-",
           "dateCreate": "2021-04-21 17:10:12"
       },
       {
@@ -64,7 +63,7 @@ $(document).ready(async function () {
           "name": "Hoho",
           "department": "Department C",
           "message": "Hi",
-          "fileUpload": "",
+          "fileUpload": "-",
           "dateCreate": "2021-04-21 17:10:12"
       }
     ]
@@ -87,17 +86,17 @@ $(document).ready(async function () {
     }
     initMap()
 }); 
-// $(function () {
-//     $('#submit').on('click',function (e) {
-//         postMessage();
-//         e.preventDefault();
-//     });
 
-//     $('#check').on('click',function (e) {
-//         convertBase64();
-//         e.preventDefault();
-//     });
-// });
+$(function () {
+    // $('#submit').on('click',function (e) {
+    //     postMessage();
+    //     e.preventDefault();
+    // });
+
+  $(document).on("click", ".del-btn", function(e){
+      deleteMessage($(this).attr("value"));
+  });
+});
 
 
 // Example starter JavaScript for disabling form submissions if there are invalid fields
@@ -144,12 +143,12 @@ const postMessage = async () => {
     let name = $('#name').val()
     let department = $('#department').val()
     let message = CKEDITOR.instances['message'].getData();
-    let convertImg = await convertBase64();
-    convertImg = convertImg ? convertImg : "";
+    let convertImg = $('#upload').prop('files')[0] ? await convertBase64() : "-";
 
     console.log(name, department, message, convertImg)
 
-    if(name && department && message && convertImg){
+    alert(name, department, message, convertImg);
+    if(name && department && message){
         // $.ajax({
         //     type: 'post',
         //     url: 'http://localhost:8888/greeting',
@@ -157,7 +156,7 @@ const postMessage = async () => {
         //         name,
         //         department,
         //         message,
-        //         fileUpload: convertImg   
+        //         fileUpload: convertImg
         //     },
         //     success: function (a) {
         //         console.log("Success")
@@ -170,7 +169,22 @@ const postMessage = async () => {
     }  
 }
 
-
+const deleteMessage = async (id) =>{
+  if(id){
+    // $.ajax({
+    //     type: 'delete',
+    //     url: `http://localhost:8888/greeting?id=${id}`,
+    //     success: function (a) {
+    //         console.log("Success")
+    //         console.log(a)
+    //     }
+    // });
+    alert("DELETE ID " + id);
+    location.reload();
+}else{
+    alert("No valid Message id")
+}  
+}
 
 
 // Function on Map in MP
@@ -468,10 +482,11 @@ function initMap(){
 
   // Take Map Data
   for(let i=0;i<output.length;i++){
-      var contentString ="<div class='contain'><span class='title-marker'>&quot;"+ output[i].message +
+      var contentString ="<div class='contain'><button class='btn del-btn pull-right' value='"+output[i].id+
+      "'><i class='fa fa-trash'></i></button><span class='title-marker'>&quot;"+ output[i].message +
       "&quot;</span><p>From "+output[i].name+" ("+output[i].department + 
       ")</p>";
-      if(output[i].fileUpload){
+      if(output[i].fileUpload  != "-"){
         contentString +="<br><img alt='img' src='"+output[i].fileUpload+"'>";
       }
       contentString +="</div>";

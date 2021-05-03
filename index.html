@@ -27,9 +27,9 @@
         <h2>Send your Message</h2>
         <div class="form">
             <form 
+            class="needs-validation" novalidate
             onsubmit="postMessage()" 
             method="POST"
-            class="needs-validation" novalidate
             >
             <!-- action="#"  -->
                 <div class="form-group">
@@ -63,8 +63,6 @@
                     <button type="submit" id="submit" class="btn btn-primary">Submit</button>
                 </div>
             </form>
-            <!-- <button id="check" class="btn btn-primary">Check</button> -->
-
         </div>
     </div>
     <div class="space-white"></div>
@@ -73,9 +71,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
     <script src="https://cdn.ckeditor.com/4.16.0/full/ckeditor.js"></script>
+
     <!-- 
-        Not gonna use the async because the map will not have data first
-        
+        Not gonna use the async because the map will not have data first        
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3lENW3_tUyEUgAEs9QzHYZyP6WGulefA&callback=initMap"
     type="text/javascript"></script> -->
 
