@@ -62,3 +62,9 @@
 .pull-right{
   float: right;
 }
+
+.msg-btn{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
